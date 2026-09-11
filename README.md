@@ -82,11 +82,9 @@ Main contributions:
 - Cross-checking between Floyd-Warshall and Bellman-Ford.
 - Positive-cycle detection.
 - Detection of unbounded maximum-churun paths.
-- Floyd-Warshall matrix generation.
-- Floyd-Warshall matrix visualization.
-- Maximum-route reconstruction and highlighting.
-- Positive-cycle reconstruction and highlighting.
 - Input parsing and validation.
+- Directed graph visualization.
+- Comparison of Floyd-Warshall and Bellman-Ford results.
 - Automated tests for Mission 3.
 
 ---
@@ -567,9 +565,8 @@ The Mission 3 visualization displays:
 - Positive and negative weights.
 - Source.
 - Destination.
-- Maximum route for finite cases.
-- Positive cycle for infinite cases.
-- Floyd-Warshall matrix.
+- Result of the selected test case.
+- Comparison between Floyd-Warshall and Bellman-Ford.
 
 For a finite result, the maximum route is highlighted.
 

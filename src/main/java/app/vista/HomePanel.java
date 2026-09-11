@@ -9,6 +9,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -70,15 +72,22 @@ public class HomePanel extends JPanel {
                         Theme.HERO
                 );
 
+        hero.setPreferredSize(
+                new java.awt.Dimension(
+                        0,
+                        320
+                )
+        );
+
         hero.setLayout(
                 new BorderLayout()
         );
 
         hero.setBorder(
                 BorderFactory.createEmptyBorder(
-                        30,
+                        20,
                         42,
-                        30,
+                        4,
                         42
                 )
         );
@@ -93,6 +102,19 @@ public class HomePanel extends JPanel {
                         information,
                         BoxLayout.Y_AXIS
                 )
+        );
+
+        information.setBorder(
+                BorderFactory.createEmptyBorder(
+                        12,
+                        25,
+                        0,
+                        10
+                )
+        );
+
+        information.add(
+                Box.createVerticalGlue()
         );
 
         JLabel eyebrow =
@@ -113,22 +135,26 @@ public class HomePanel extends JPanel {
         );
 
         eyebrow.setAlignmentX(
-                LEFT_ALIGNMENT
+                CENTER_ALIGNMENT
+        );
+
+        eyebrow.setHorizontalAlignment(
+                JLabel.CENTER
         );
 
         JLabel title =
                 new JLabel(
-                        "<html>"
+                        "<html><div style='text-align:center;'>"
                                 + "The Feline Graph<br>"
                                 + "Chronicles ♡"
-                                + "</html>"
+                                + "</div></html>"
                 );
 
         title.setFont(
                 new Font(
                         Theme.FONT_FAMILY,
                         Font.BOLD,
-                        34
+                        45
                 )
         );
 
@@ -137,7 +163,11 @@ public class HomePanel extends JPanel {
         );
 
         title.setAlignmentX(
-                LEFT_ALIGNMENT
+                CENTER_ALIGNMENT
+        );
+
+        title.setHorizontalAlignment(
+                JLabel.CENTER
         );
 
         JLabel subtitle =
@@ -158,7 +188,11 @@ public class HomePanel extends JPanel {
         );
 
         subtitle.setAlignmentX(
-                LEFT_ALIGNMENT
+                CENTER_ALIGNMENT
+        );
+
+        subtitle.setHorizontalAlignment(
+                JLabel.CENTER
         );
 
         information.add(eyebrow);
@@ -175,20 +209,108 @@ public class HomePanel extends JPanel {
 
         information.add(subtitle);
 
-        information.add(
-                Box.createVerticalStrut(22)
-        );
+        information.add(subtitle);
 
         information.add(
-                buildAlgorithmTags()
+                Box.createVerticalGlue()
         );
 
-        hero.add(
+        JPanel heroContent =
+                new JPanel(
+                        new BorderLayout(
+                                20,
+                                0
+                        )
+                );
+
+        heroContent.setOpaque(false);
+
+        heroContent.add(
+                buildHeroImage(),
+                BorderLayout.WEST
+        );
+
+        heroContent.add(
                 information,
                 BorderLayout.CENTER
         );
 
+        hero.add(
+                heroContent,
+                BorderLayout.CENTER
+        );
+
+        hero.add(
+                buildAlgorithmTags(),
+                BorderLayout.SOUTH
+        );
+
         return hero;
+    }
+
+    private JPanel buildHeroImage() {
+
+        JPanel imagePanel = new JPanel(
+                new BorderLayout()
+        );
+
+        imagePanel.setOpaque(false);
+
+        imagePanel.setPreferredSize(
+                new java.awt.Dimension(
+                        380,
+                        250
+                )
+        );
+
+        java.net.URL imageUrl =
+                getClass().getResource(
+                        "/images/feline-team.png"
+                );
+
+        if (imageUrl == null) {
+            return imagePanel;
+        }
+
+        ImageIcon originalIcon =
+                new ImageIcon(imageUrl);
+
+        Image originalImage =
+                originalIcon.getImage();
+
+        int targetWidth = 330;
+
+        int targetHeight =
+                originalIcon.getIconHeight()
+                        * targetWidth
+                        / originalIcon.getIconWidth();
+
+        Image scaledImage =
+                originalImage.getScaledInstance(
+                        targetWidth,
+                        targetHeight,
+                        Image.SCALE_SMOOTH
+                );
+
+        JLabel imageLabel =
+                new JLabel(
+                        new ImageIcon(scaledImage)
+                );
+
+        imageLabel.setHorizontalAlignment(
+                JLabel.CENTER
+        );
+
+        imageLabel.setVerticalAlignment(
+                JLabel.CENTER
+        );
+
+        imagePanel.add(
+                imageLabel,
+                BorderLayout.CENTER
+        );
+
+        return imagePanel;
     }
 
     private JPanel buildAlgorithmTags() {
@@ -196,8 +318,8 @@ public class HomePanel extends JPanel {
         JPanel tags =
                 new JPanel(
                         new FlowLayout(
-                                FlowLayout.LEFT,
-                                9,
+                                FlowLayout.CENTER,
+                                7,
                                 7
                         )
                 );
@@ -210,6 +332,10 @@ public class HomePanel extends JPanel {
         tags.add(createTag("🍰  Floyd-Warshall"));
         tags.add(createTag("🩵  Bellman-Ford"));
         tags.add(createTag("🌿  Kruskal"));
+
+        tags.setAlignmentX(
+                CENTER_ALIGNMENT
+        );
 
         return tags;
     }

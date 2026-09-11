@@ -14,6 +14,8 @@ import mision3.algoritmo.FloydWarshall;
 import mision3.modelo.FloydWarshallResult;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -279,19 +281,47 @@ public final class Mission3Panel extends JPanel {
         information.add(subtitle);
 
         JLabel decoration =
-                new JLabel(
-                        "🍰",
-                        SwingConstants.CENTER
+                new JLabel();
+
+        java.net.URL imageUrl =
+                getClass().getResource(
+                        "/images/mission3-cats.png"
                 );
 
-        decoration.setFont(
-                new Font(
-                        Theme.FONT_FAMILY,
-                        Font.PLAIN,
-                        32
-                )
+        if (imageUrl != null) {
+
+            ImageIcon originalIcon =
+                    new ImageIcon(imageUrl);
+
+            Image originalImage =
+                    originalIcon.getImage();
+
+            int targetWidth = 180;
+
+            int targetHeight =
+                    originalIcon.getIconHeight()
+                            * targetWidth
+                            / originalIcon.getIconWidth();
+
+            Image scaledImage =
+                    originalImage.getScaledInstance(
+                            targetWidth,
+                            targetHeight,
+                            Image.SCALE_SMOOTH
+                    );
+
+            decoration.setIcon(
+                    new ImageIcon(scaledImage)
+            );
+        }
+
+        decoration.setHorizontalAlignment(
+                SwingConstants.CENTER
         );
 
+        decoration.setVerticalAlignment(
+                SwingConstants.CENTER
+        );
         hero.add(
                 information,
                 BorderLayout.CENTER

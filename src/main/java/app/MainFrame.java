@@ -20,9 +20,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -243,6 +242,14 @@ public class MainFrame extends JFrame {
         );
 
         sidebar.add(
+                Box.createVerticalStrut(8)
+        );
+
+        sidebar.add(
+                buildSidebarDecoration()
+        );
+
+        sidebar.add(
                 Box.createVerticalGlue()
         );
 
@@ -270,34 +277,49 @@ public class MainFrame extends JFrame {
         brand.setMaximumSize(
                 new Dimension(
                         190,
-                        105
+                        170
                 )
         );
 
         brand.setPreferredSize(
                 new Dimension(
                         190,
-                        105
+                        170
                 )
         );
-
 
         JLabel cat =
-                new JLabel(
-                        "🐱",
-                        SwingConstants.CENTER
+                new JLabel();
+
+        java.net.URL logoUrl =
+                getClass().getResource(
+                        "/images/feline-logo.png"
                 );
 
-        cat.setFont(
-                new Font(
-                        Theme.FONT_FAMILY,
-                        Font.PLAIN,
-                        32
-                )
-        );
+        if (logoUrl != null) {
+
+            ImageIcon originalIcon =
+                    new ImageIcon(logoUrl);
+
+            Image scaledImage =
+                    originalIcon.getImage()
+                            .getScaledInstance(
+                                    100,
+                                    100,
+                                    Image.SCALE_SMOOTH
+                            );
+
+            cat.setIcon(
+                    new ImageIcon(scaledImage)
+            );
+        }
 
         cat.setAlignmentX(
                 CENTER_ALIGNMENT
+        );
+
+        cat.setHorizontalAlignment(
+                SwingConstants.CENTER
         );
 
 
@@ -339,6 +361,79 @@ public class MainFrame extends JFrame {
 
         return brand;
     }
+
+    private JPanel buildSidebarDecoration() {
+
+        JPanel decorationPanel =
+                new JPanel(
+                        new BorderLayout()
+                );
+
+        decorationPanel.setOpaque(false);
+
+        decorationPanel.setMaximumSize(
+                new Dimension(
+                        184,
+                        230
+                )
+        );
+
+        decorationPanel.setPreferredSize(
+                new Dimension(
+                        184,
+                        230
+                )
+        );
+
+        java.net.URL imageUrl =
+                getClass().getResource(
+                        "/images/sidebar-cats.png"
+                );
+
+        if (imageUrl != null) {
+
+            ImageIcon originalIcon =
+                    new ImageIcon(imageUrl);
+
+            Image originalImage =
+                    originalIcon.getImage();
+
+            int targetWidth = 165;
+
+            int targetHeight =
+                    originalIcon.getIconHeight()
+                            * targetWidth
+                            / originalIcon.getIconWidth();
+
+            Image scaledImage =
+                    originalImage.getScaledInstance(
+                            targetWidth,
+                            targetHeight,
+                            Image.SCALE_SMOOTH
+                    );
+
+            JLabel imageLabel =
+                    new JLabel(
+                            new ImageIcon(scaledImage)
+                    );
+
+            imageLabel.setHorizontalAlignment(
+                    SwingConstants.CENTER
+            );
+
+            imageLabel.setVerticalAlignment(
+                    SwingConstants.CENTER
+            );
+
+            decorationPanel.add(
+                    imageLabel,
+                    BorderLayout.CENTER
+            );
+        }
+
+        return decorationPanel;
+    }
+
 
     private RoundedButton createMenuButton(
             String text,

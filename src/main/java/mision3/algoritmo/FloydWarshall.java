@@ -8,11 +8,6 @@ import mision3.modelo.FloydWarshallResult;
 
 public final class FloydWarshall {
 
-    /*
-     * Representa que no existe un camino entre dos nodos.
-     *
-     * En la matriz visual este valor se mostrará como "-".
-     */
     public static final long NEGATIVE_INFINITY =
             Long.MIN_VALUE / 4;
 
@@ -146,12 +141,6 @@ public final class FloydWarshall {
             }
         }
 
-        /*
-         * infinitePairs[i][j] será true cuando:
-         *
-         * i puede llegar a un ciclo positivo
-         * y ese ciclo puede llegar hasta j.
-         */
         boolean[][] infinitePairs =
                 new boolean[n][n];
 
@@ -217,10 +206,6 @@ public final class FloydWarshall {
         );
     }
 
-    /*
-     * Este método se mantiene para que otras partes del proyecto puedan
-     * obtener únicamente el resultado cuando no necesitan la matriz.
-     */
     public static ChurunResult findMaximum(
             DirectedGraph graph,
             int source,
